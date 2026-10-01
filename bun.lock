@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "ifs24051-pabwer2026-reactjs",
+      "name": "ifs24051-pabwe2026-reactjs",
       "dependencies": {
         "@reduxjs/toolkit": "^2.8.2",
         "@tailwindcss/vite": "^4.1.13",
