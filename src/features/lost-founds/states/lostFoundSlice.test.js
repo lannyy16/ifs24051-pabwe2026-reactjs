@@ -1,0 +1,1 @@
+import {describe,it,expect} from 'vitest';import reducer,{clearDetail} from './lostFoundSlice';describe('lf reducer',()=>{it('initial',()=>expect(reducer(undefined,{}).lostFounds).toEqual([]));it('clear',()=>expect(reducer({lostFound:{id:1}},clearDetail()).lostFound).toBeNull())})

@@ -1,0 +1,1 @@
+import {describe,it,expect} from 'vitest';import store from './store';describe('store',()=>{it('has slices',()=>{const s=store.getState();expect(s).toHaveProperty('auth');expect(s).toHaveProperty('users');expect(s).toHaveProperty('lostFounds')})})

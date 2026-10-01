@@ -1,0 +1,1 @@
+import {describe,it,expect} from 'vitest';import {render} from '@testing-library/react';import {MemoryRouter} from 'react-router-dom';import SidebarComponent from './SidebarComponent';describe('Sidebar',()=>{it('renders',()=>expect(render(<MemoryRouter><SidebarComponent/></MemoryRouter>).getByText('Dashboard')).toBeInTheDocument())})

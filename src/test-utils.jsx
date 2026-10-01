@@ -1,0 +1,3 @@
+import React from 'react'; import {Provider} from 'react-redux'; import {MemoryRouter} from 'react-router-dom'; import {render} from '@testing-library/react'; import store from './store';
+export function renderWithProviders(ui,{route='/',preloadedState}={}){return render(<Provider store={preloadedState?requireStore(preloadedState):store}><MemoryRouter initialEntries={[route]}>{ui}</MemoryRouter></Provider>)}
+function requireStore(state){return store.constructor?store:store}
