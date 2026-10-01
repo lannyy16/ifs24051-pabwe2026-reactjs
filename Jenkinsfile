@@ -1,0 +1,1 @@
+pipeline { agent any; stages { stage('Install'){steps{sh 'bun install'}} stage('Test'){steps{sh 'bun run test:coverage'}} stage('Build'){steps{sh 'bun run build'}} } post { always { archiveArtifacts artifacts:'coverage/**', allowEmptyArchive:true } } }

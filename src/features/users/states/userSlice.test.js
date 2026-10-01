@@ -1,0 +1,1 @@
+import {describe,it,expect} from 'vitest';import reducer,{setProfile} from './userSlice';describe('user reducer',()=>{it('initial',()=>expect(reducer(undefined,{}).users).toEqual([]));it('sets profile',()=>expect(reducer(undefined,setProfile({id:1})).profile.id).toBe(1))})

@@ -1,0 +1,1 @@
+import {get,put,post} from '../../../helpers/apiHelper';export const getUsersApi=()=>get('/users');export const getProfileApi=()=>get('/users/me');export const updateProfileApi=b=>put('/users/me',b);export const changePhotoApi=file=>{const f=new FormData();f.append('photo',file);return post('/users/me/photo',f)};export const changePasswordApi=b=>put('/users/password',b);
