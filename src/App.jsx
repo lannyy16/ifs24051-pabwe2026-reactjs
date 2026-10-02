@@ -1,4 +1,11 @@
-import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import {
+  Navigate,
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom'
+
 import { getAccessToken } from './helpers/apiHelper'
 
 import AuthLayout from './features/auth/layouts/AuthLayout'
@@ -12,7 +19,6 @@ import StatsPage from './features/lost-founds/pages/StatsPage'
 
 import UsersPage from './features/users/pages/UsersPage'
 import ProfilePage from './features/users/pages/ProfilePage'
-
 
 function ProtectedRoute() {
   const location = useLocation()
@@ -31,76 +37,28 @@ function ProtectedRoute() {
   return <Outlet />
 }
 
-
 export default function App() {
   return (
     <Routes>
-
-      {/* =========================
-          HALAMAN PUBLIC
-      ========================== */}
-
       <Route path="/auth" element={<AuthLayout />}>
-        <Route
-          path="login"
-          element={<LoginPage />}
-        />
-
-        <Route
-          path="register"
-          element={<RegisterPage />}
-        />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
       </Route>
-
-
-      {/* =========================
-          HALAMAN TERPROTEKSI
-      ========================== */}
 
       <Route element={<ProtectedRoute />}>
-
-        <Route
-          path="/"
-          element={<LostFoundLayout />}
-        >
-          <Route
-            index
-            element={<HomePage />}
-          />
-
-          <Route
-            path="lost-founds/:id"
-            element={<DetailPage />}
-          />
-
-          <Route
-            path="stats"
-            element={<StatsPage />}
-          />
-
-          <Route
-            path="users"
-            element={<UsersPage />}
-          />
-
-          <Route
-            path="profile"
-            element={<ProfilePage />}
-          />
+        <Route path="/" element={<LostFoundLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="lost-founds/:id" element={<DetailPage />} />
+          <Route path="stats" element={<StatsPage />} />
+          <Route path="users" element={<UsersPage />} />
+          <Route path="profile" element={<ProfilePage />} />
         </Route>
-
       </Route>
-
-
-      {/* =========================
-          ROUTE TIDAK DITEMUKAN
-      ========================== */}
 
       <Route
         path="*"
         element={<Navigate to="/" replace />}
       />
-
     </Routes>
   )
 }
