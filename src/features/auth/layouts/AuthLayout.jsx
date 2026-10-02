@@ -1,1 +1,25 @@
-import {Navigate,Outlet} from 'react-router-dom';import {getAccessToken} from '../../../helpers/apiHelper';export default function AuthLayout(){return getAccessToken()?<Navigate to="/" replace/>:<main className="min-h-screen grid lg:grid-cols-2 bg-slate-50"><section className="hidden lg:flex bg-indigo-600 text-white p-12 items-center"><div><p className="text-indigo-200 font-semibold">DELCOM CAMPUS</p><h1 className="text-5xl font-extrabold mt-3">Lost & Found</h1><p className="mt-5 text-indigo-100 max-w-md">Temukan kembali barangmu dan bantu teman kampus menemukan barang yang hilang.</p></div></section><section className="flex items-center justify-center p-6"><div className="w-full max-w-md"><Outlet/></div></section></main>}
+import { Navigate, Outlet } from 'react-router-dom';
+import { getAccessToken } from '../../../helpers/apiHelper';
+
+export default function AuthLayout() {
+  return getAccessToken() ? (
+    <Navigate to="/" replace />
+  ) : (
+    <main className="min-h-screen grid lg:grid-cols-2 bg-slate-50">
+      <section className="hidden lg:flex bg-indigo-600 text-white p-12 items-center">
+        <div>
+          <p className="text-indigo-200 font-semibold">DELCOM CAMPUS</p>
+          <h2 className="text-5xl font-extrabold mt-3">Lost &amp; Found</h2>
+          <p className="mt-5 text-indigo-100 max-w-md">
+            Temukan kembali barangmu dan bantu teman kampus menemukan barang yang hilang.
+          </p>
+        </div>
+      </section>
+      <section className="flex items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          <Outlet />
+        </div>
+      </section>
+    </main>
+  );
+}
