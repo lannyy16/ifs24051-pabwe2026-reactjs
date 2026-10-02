@@ -1,9 +1,12 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-const AuthLayout = lazy(() => import('./features/auth/layouts/AuthLayout'))
-const LoginPage = lazy(() => import('./features/auth/pages/LoginPage'))
-const RegisterPage = lazy(() => import('./features/auth/pages/RegisterPage'))
+// Halaman auth — import LANGSUNG (bukan lazy) agar form langsung render
+import AuthLayout from './features/auth/layouts/AuthLayout'
+import LoginPage from './features/auth/pages/LoginPage'
+import RegisterPage from './features/auth/pages/RegisterPage'
+
+// Halaman utama — tetap lazy
 const LostFoundLayout = lazy(() => import('./features/lost-founds/layouts/LostFoundLayout'))
 const HomePage = lazy(() => import('./features/lost-founds/pages/HomePage'))
 const DetailPage = lazy(() => import('./features/lost-founds/pages/DetailPage'))
