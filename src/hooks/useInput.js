@@ -1,1 +1,0 @@
-import {useState} from 'react';export default function useInput(initial=''){const [value,setValue]=useState(initial);const onChange=e=>setValue(e?.target?.value??e);return {value,onChange,setValue,reset:()=>setValue(initial)}}

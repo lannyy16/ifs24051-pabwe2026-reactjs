@@ -1,1 +1,0 @@
-export {setProfile} from './userSlice';

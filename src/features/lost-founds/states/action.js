@@ -1,1 +1,0 @@
-export {clearDetail} from './lostFoundSlice';

@@ -1,1 +1,0 @@
-import {configureStore} from '@reduxjs/toolkit';import auth from './features/auth/states/authSlice';import users from './features/users/states/userSlice';import lostFounds from './features/lost-founds/states/lostFoundSlice';const store=configureStore({reducer:{auth,users,lostFounds}});export default store;export const rootReducer=store.reducer;

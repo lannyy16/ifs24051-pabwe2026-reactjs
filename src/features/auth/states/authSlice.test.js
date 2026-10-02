@@ -1,1 +1,0 @@
-import {describe,it,expect} from 'vitest';import reducer,{setUser} from './authSlice';describe('auth reducer',()=>{it('sets user',()=>expect(reducer(undefined,setUser({id:1})).user.id).toBe(1));it('initial',()=>expect(reducer(undefined,{}).isAuthLogin).toBe(false))})
