@@ -1,13 +1,11 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { getAccessToken } from '../../../helpers/apiHelper'
 
 export default function ProtectedRoute() {
   const location = useLocation()
+  const token = getAccessToken()
 
-  const token = useSelector((state) => state.auth?.token)
-  const isAuthenticated = Boolean(token)
-
-  if (!isAuthenticated) {
+  if (!token) {
     return (
       <Navigate
         to="/auth/login"

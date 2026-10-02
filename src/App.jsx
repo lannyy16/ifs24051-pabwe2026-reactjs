@@ -1,10 +1,9 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Outlet, Route, Routes, useLocation } from 'react-router-dom'
+import { getAccessToken } from './helpers/apiHelper'
 
 import AuthLayout from './features/auth/layouts/AuthLayout'
 import LoginPage from './features/auth/pages/LoginPage'
 import RegisterPage from './features/auth/pages/RegisterPage'
-
-import ProtectedRoute from './features/auth/components/ProtectedRoute'
 
 import LostFoundLayout from './features/lost-founds/layouts/LostFoundLayout'
 import HomePage from './features/lost-founds/pages/HomePage'
@@ -13,6 +12,25 @@ import StatsPage from './features/lost-founds/pages/StatsPage'
 
 import UsersPage from './features/users/pages/UsersPage'
 import ProfilePage from './features/users/pages/ProfilePage'
+
+
+function ProtectedRoute() {
+  const location = useLocation()
+  const token = getAccessToken()
+
+  if (!token) {
+    return (
+      <Navigate
+        to="/auth/login"
+        replace
+        state={{ from: location }}
+      />
+    )
+  }
+
+  return <Outlet />
+}
+
 
 export default function App() {
   return (
@@ -23,8 +41,15 @@ export default function App() {
       ========================== */}
 
       <Route path="/auth" element={<AuthLayout />}>
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
+        <Route
+          path="login"
+          element={<LoginPage />}
+        />
+
+        <Route
+          path="register"
+          element={<RegisterPage />}
+        />
       </Route>
 
 
@@ -34,9 +59,14 @@ export default function App() {
 
       <Route element={<ProtectedRoute />}>
 
-        <Route path="/" element={<LostFoundLayout />}>
-          
-          <Route index element={<HomePage />} />
+        <Route
+          path="/"
+          element={<LostFoundLayout />}
+        >
+          <Route
+            index
+            element={<HomePage />}
+          />
 
           <Route
             path="lost-founds/:id"
@@ -57,7 +87,6 @@ export default function App() {
             path="profile"
             element={<ProfilePage />}
           />
-
         </Route>
 
       </Route>
