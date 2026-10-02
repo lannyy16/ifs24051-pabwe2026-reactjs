@@ -1,0 +1,1 @@
+import {post} from '../../../helpers/apiHelper';export const loginApi=payload=>post('/auth/login',payload,{auth:false});export const registerApi=payload=>post('/auth/register',payload,{auth:false});export const logoutApi=()=>post('/auth/logout');

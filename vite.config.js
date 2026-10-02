@@ -2,11 +2,26 @@ import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+const nonBlockingCss = {
+  name: 'non-blocking-css',
+  apply: 'build',
+  enforce: 'post',
+  generateBundle(_options, bundle) {
+    const html = bundle['index.html']
+    if (!html || html.type !== 'asset') return
+
+    html.source = String(html.source).replace(
+      /<link rel=\"stylesheet\" crossorigin href=\"([^\"]+)\">/g,
+      '<link rel=\"preload\" as=\"style\" href=\"$1\" onload=\"this.onload=null;this.rel=\'stylesheet\'\">',
+    )
+  },
+}
+
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), nonBlockingCss],
     appType: 'spa',
     base: '/',
     server: {
