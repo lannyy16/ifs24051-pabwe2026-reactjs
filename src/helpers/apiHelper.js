@@ -1,4 +1,64 @@
 const BASE=typeof DELCOM_BASEURL!=='undefined'?DELCOM_BASEURL:(import.meta.env?.VITE_DELCOM_BASEURL||'https://open-api.delcom.org/api/v1');
-export const getAccessToken=()=>localStorage.getItem('delcom_token');export const putAccessToken=t=>{if(t)localStorage.setItem('delcom_token',t);else localStorage.removeItem('delcom_token');return t};
-export async function apiFetch(path,{method='GET',body,query,auth=true,headers={}}={}){const url=new URL(`${BASE}${path}`);Object.entries(query||{}).forEach(([k,v])=>{if(v!==undefined&&v!==null&&v!=='')url.searchParams.set(k,v)});const h={Accept:'application/json',...headers};if(auth){const t=getAccessToken();if(t)h.Authorization=`Bearer ${t}`};let payload=body;if(body && !(body instanceof FormData)){h['Content-Type']='application/json';payload=JSON.stringify(body)}const res=await fetch(url,{method,headers:h,body:payload});const data=await res.json().catch(()=>({status:res.ok?'success':'fail',message:res.statusText}));if(!res.ok||data.status==='fail')throw new Error(data.message||'Request gagal');return data}
-export const get=(p,o)=>apiFetch(p,{...o,method:'GET'});export const post=(p,b,o)=>apiFetch(p,{...o,method:'POST',body:b});export const put=(p,b,o)=>apiFetch(p,{...o,method:'PUT',body:b});export const del=(p,o)=>apiFetch(p,{...o,method:'DELETE'});
+
+export const getAccessToken=()=>localStorage.getItem('delcom_token');
+
+export const putAccessToken=t=>{
+  if(t)localStorage.setItem('delcom_token',t);
+  else localStorage.removeItem('delcom_token');
+  return t;
+};
+
+export async function apiFetch(path,{method='GET',body,query,auth=true,headers={}}={}) {
+  const url=new URL(`${BASE}${path}`);
+
+  Object.entries(query||{}).forEach(([k,v])=>{
+    if(v!==undefined&&v!==null&&v!=='')
+      url.searchParams.set(k,v)
+  });
+
+  const h={Accept:'application/json',...headers};
+
+  if(auth){
+    const t=getAccessToken();
+    if(t)h.Authorization=`Bearer ${t}`;
+  }
+
+  let payload=body;
+
+  if(body && !(body instanceof FormData)){
+    h['Content-Type']='application/json';
+    payload=JSON.stringify(body);
+  }
+
+  const res=await fetch(url,{
+    method,
+    headers:h,
+    body:payload
+  });
+
+  const data=await res.json().catch(() => ({
+    status:res.ok?'success':'fail',
+    message:res.statusText
+  }));
+
+  if(!res.ok || data.status==='fail'){
+    const validationErrors=data.data?.field;
+
+    if(validationErrors){
+      const detail=Object.values(validationErrors)
+        .flat()
+        .join(', ');
+
+      throw new Error(detail || data.message || 'Request gagal');
+    }
+
+    throw new Error(data.message || 'Request gagal');
+  }
+
+  return data;
+}
+
+export const get=(p,o)=>apiFetch(p,{...o,method:'GET'});
+export const post=(p,b,o)=>apiFetch(p,{...o,method:'POST',body:b});
+export const put=(p,b,o)=>apiFetch(p,{...o,method:'PUT',body:b});
+export const del=(p,o)=>apiFetch(p,{...o,method:'DELETE'});
