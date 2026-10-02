@@ -25,8 +25,8 @@ export default function LoginPage() {
 
   return (
     <form onSubmit={submit} className="card p-8">
-      <h2 className="text-2xl font-extrabold">Selamat datang 👋</h2>
-      <p className="text-slate-500 mt-1">Masuk ke Delcom Lost & Found</p>
+      <h1 className="text-2xl font-extrabold">Selamat datang 👋</h1>
+      <p className="text-slate-600 mt-1">Masuk ke Delcom Lost &amp; Found</p>
 
       <label className="block mt-6 text-sm font-semibold">
         Email
@@ -54,6 +54,7 @@ export default function LoginPage() {
 
       <button
         id="login-submit-button"
+        type="submit"
         disabled={loading}
         className="w-full mt-6 py-3 rounded-xl bg-indigo-600 text-white font-bold"
       >
